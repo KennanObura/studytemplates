@@ -14,7 +14,6 @@ Having a general approach i.e template can reduce the amount spent for coding yo
 I decided to follow though while documenting various reusable templates for given sets of problems. I remain work in progress, but I will continue documenting 
 templates 
 
-
 # Sliding Window 
 
 ###  1. Shrinkable window
