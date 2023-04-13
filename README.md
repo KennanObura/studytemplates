@@ -73,4 +73,116 @@ Links to solutions solved with the template
 ```
 
 
+
+
+# 2 Prefix Sum
+
+These set of problems are solved in linear time using a pre culculated, running sum. Generally, Hashmap is used to calculate the running `sum`
+Can be confusing on when to use as they are related to Sliding window. 
+Question format 
+  - k diff
+  - How many subarrays with K
+  - How many pairs
+  
+  
+ #### 1 How many subarrays | K diff
+ 
+ 
+ ```
+ 
+ Map<Integer, Integer> map = new HashMap<>(); // Keeping frequency counter of seen key
+ 
+ map.put(0, 1); //Edge case . to take care of when the 0th num is part of the running sum
+ 
+ int  res = 0;
+ 
+ for(int num: nums){
+    // key CODE eg, running sum
+    
+    res += map.getOrDefault(key, 0); // add freq to the result if we have seen 'key' in our map before, otherwise 0
+    map.put(key, map.getOrDefault(key, 0)+1);
+ }
+ 
+ 
+ ```
+ 
+ [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/description/)
+ 
+ [974. Subarray Sums Divisible by K](https://leetcode.com/problems/subarray-sums-divisible-by-k/description/)
+ 
+ 
+ 
+  
+ #### 2 How many pairs
+ 
+ 
+  
+ ```
+ 
+ Map<Integer, Integer> map = new HashMap<>(); // Keeping frequency counter of seen key
+  
+ int  res = 0;
+ 
+ for(int num: nums){
+    // key CODE eg, running sum query
+    
+    res += map.getOrDefault(key, 0); // add freq to the result if we have seen 'key' in our map before, otherwise 0
+    map.put(key, map.getOrDefault(key, 0)+1);
+ }
+ 
+ ```
+Example of problems 
+
+[2364. Count Number of Bad Pairs](https://leetcode.com/problems/count-number-of-bad-pairs/description/)
+
+[1814. Count Nice Pairs in an Array](https://leetcode.com/problems/count-nice-pairs-in-an-array/description/)
+
+[2001. Number of Pairs of Interchangeable Rectangles](https://leetcode.com/problems/number-of-pairs-of-interchangeable-rectangles/)
+
+
+```
+2001. Number of Pairs of Interchangeable Rectangles
+
+You are given n rectangles represented by a 0-indexed 2D integer array rectangles, where rectangles[i] = [widthi, heighti] denotes the width and height of the ith rectangle.
+
+Two rectangles i and j (i < j) are considered interchangeable if they have the same width-to-height ratio. More formally, two rectangles are interchangeable if widthi/heighti == widthj/heightj (using decimal division, not integer division).
+
+Return the number of pairs of interchangeable rectangles in rectangles.
+
+ 
+
+Example 1:
+
+Input: rectangles = [[4,8],[3,6],[10,20],[15,30]]
+Output: 6
+Explanation: The following are the interchangeable pairs of rectangles by index (0-indexed):
+- Rectangle 0 with rectangle 1: 4/8 == 3/6.
+- Rectangle 0 with rectangle 2: 4/8 == 10/20.
+- Rectangle 0 with rectangle 3: 4/8 == 15/30.
+- Rectangle 1 with rectangle 2: 3/6 == 10/20.
+- Rectangle 1 with rectangle 3: 3/6 == 15/30.
+- Rectangle 2 with rectangle 3: 10/20 == 15/30.
+Example 2:
+
+Input: rectangles = [[4,5],[7,8]]
+Output: 0
+Explanation: There are no interchangeable pairs of rectangles.
+```
+
+```
+  public long interchangeableRectangles(int[][] rect) {
+        Map<Double, Integer> map = new HashMap<>();
+        long pairs= 0;
+
+        for(int [] dim: rect ){
+            double ration = dim[0]/(double)dim[1];
+            pairs += map.getOrDefault(ration, 0);
+            map.put(ration, map.getOrDefault(ration, 0)+1);
+        }
+        return pairs;
+        
+    }
+```
+ 
+ 
  
