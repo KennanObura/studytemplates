@@ -75,7 +75,7 @@ Links to solutions solved with the template
 
 
 
-# 2 Prefix Sum
+#  Prefix Sum
 
 These set of problems are solved in linear time using a pre culculated, running sum. Generally, Hashmap is used to calculate the running `sum`
 Can be confusing on when to use as they are related to Sliding window. 
@@ -184,5 +184,109 @@ Explanation: There are no interchangeable pairs of rectangles.
     }
 ```
  
+
+# Monotonic Stack
+
+Monotonic means some kind of natural ordering, either non-decreasing or non-increasing. Monotonic stack is a stack data structure with items that are either strictly increasing or decreasing.
+
+The set of problems that **query** the **next greater*** or **next smaller** can be efficiently solved using monostack ds. 
+
+#### Problem form
+ - Range of Query in an array 
+ - Next greater / Next smaller
+ - Minima/Maxima situation
  
+ 
+ 
+```
+- For greater problems, use a monotonically increasing stack (from top to bottom).
+- For smaller problems, use a monotonically decreasing stack (from top to bottom).
+- For next problems, backwardly iterate through the list and push elements into the stack.
+- For previous problems, forwardly iterate through the list.
+- For problems with a circular list, iterate through the list twice.
+```
+
+### General Template
+
+```
+
+
+
+  for(int i = 0; i < n; i++ ){
+  
+     while(!stack.isEmpty() &&  // Condition that breakes the sequence )
+        stack.pop() // maintain the monotony of the stack. 
+        
+     // add/calculate to result
+     
+      stack.push(i / A[i])
+  } 
+  
+  
+  
+
+```
+### Example
+
+[496. Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/solutions/3430335/java-monotonic-stack/)
+
+
+```
+The next greater element of some element x in an array is the first greater element that is to the right of x in the same array.
+
+You are given two distinct 0-indexed integer arrays nums1 and nums2, where nums1 is a subset of nums2.
+
+For each 0 <= i < nums1.length, find the index j such that nums1[i] == nums2[j] and determine the next greater element of nums2[j] in nums2. If there is no next greater element, then the answer for this query is -1.
+
+Return an array ans of length nums1.length such that ans[i] is the next greater element as described above.
+
+ 
+
+Example 1:
+
+Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
+Output: [-1,3,-1]
+Explanation: The next greater element for each value of nums1 is as follows:
+- 4 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.
+- 1 is underlined in nums2 = [1,3,4,2]. The next greater element is 3.
+- 2 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1
+
+```
+
+
+#### Solution
+
+As we move from backwards, keep in stack, strictly increasing items in stack. The peek will be the next greate item of the ith value
+
+
+```
+   public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+
+        Map<Integer, Integer> indices = new HashMap<>();
+        for(int i = 0; i < nums1.length; i++)
+            indices.put(nums1[i], i);
+
+        Stack<Integer> stack = new Stack<>();
+
+        for(int i = nums2.length-1; i > -1; i--){
+            while(!stack.isEmpty() && nums2[i] >= stack.peek())
+                stack.pop();
+            
+            if(indices.containsKey(nums2[i]))
+                nums1[indices.get(nums2[i])] =  stack.isEmpty() ? -1 : stack.peek();
+
+            stack.push(nums2[i]);
+
+        }
+       
+        return nums1;
+    }
+```
+
+#### Other problems
+
+[503. Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/description/)
+
+
+
  
