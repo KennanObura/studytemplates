@@ -72,6 +72,9 @@ Links to solutions solved with the template
   }
 ```
 
+#### Example
+
+[1456. Maximum Number of Vowels in a Substring of Given Length](https://leetcode.com/submissions/detail/936381379/)
 
 
 
